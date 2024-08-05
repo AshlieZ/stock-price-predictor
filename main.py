@@ -11,7 +11,19 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 # Loading data
 company = 'NVDA' #NVIDIA NASDAQ ticker symbol
 
-start = dt.datetime(2020, 1, 1)
-end = dt.datetime(2023, 1, 1)
+start = dt.datetime(2012, 1, 1) #Pre-covid, post Crpyto mining boom
+end = dt.datetime(2020, 1, 1)
 
 data = web.DataReader(company, 'yahoo', start, end)
+
+#Preparing Data
+scaler = MinMaxScaler(feature_range=(0,1))
+scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1,1))
+
+prediction_days = 90 #Amount of days used to predict future price
+
+x_trainData = []
+y_trainData = []
+
+for x in range(prediction_days, len(scaled_data)):
+    x_trainData.append(scaled_data[])
